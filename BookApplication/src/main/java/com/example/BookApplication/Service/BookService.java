@@ -31,7 +31,6 @@ public class BookService {
                     return bookRepository.save(existingBook);
                 })
                 .orElseGet(() -> {
-                    bookDetails.setId(id);
                     return bookRepository.save(bookDetails);
                 });
     }
