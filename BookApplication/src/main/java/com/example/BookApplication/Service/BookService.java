@@ -25,15 +25,14 @@ public class BookService {
     public Book updateBook(Integer id, Book bookDetails) {
         return bookRepository.findById(id)
                 .map(existingBook -> {
-                    // Update the fields of the existing book
                     existingBook.setTitle(bookDetails.getTitle());
                     existingBook.setAuthor(bookDetails.getAuthor());
                     existingBook.setGenre(bookDetails.getGenre());
-                    return bookRepository.save(existingBook); // Save the updated book
+                    return bookRepository.save(existingBook);
                 })
                 .orElseGet(() -> {
-                    bookDetails.setId(id); // Set the ID manually (if allowed by your DB)
-                    return bookRepository.save(bookDetails); // Create a new book
+                    bookDetails.setId(id);
+                    return bookRepository.save(bookDetails);
                 });
     }
 
@@ -43,6 +42,6 @@ public class BookService {
     }
 
     public List<Book> getAllBooks() {
-        return bookRepository.findAll();  // Assuming you're using Spring Data JPA
+        return bookRepository.findAll();
     }
 }
