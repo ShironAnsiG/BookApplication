@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
+
+
 @RequestMapping("/book/v1")
 public class BookController {
-
     private final BookService bookService;
 
     @Autowired
@@ -23,17 +27,23 @@ public class BookController {
         return ResponseEntity.ok(savedBook);
 
     }
-    @GetMapping("/getBook/{bookName}")
-    public ResponseEntity<Book> getBookByName(@PathVariable("bookName") String name) {
-        final Book bookByName = bookService.getBookByName(name);
-        return ResponseEntity.ok(bookByName);
+    @GetMapping("/Books")
+    public ResponseEntity<List<Book>> getAllBooks() {
+        List<Book> books = bookService.getAllBooks();
+        return ResponseEntity.ok(books);
+    }
 
+    @GetMapping("/getBook/{id}")
+    public ResponseEntity<Book> getBookById(@PathVariable("id") Integer id) {
+        Book book = bookService.getBookById(id);
+        return ResponseEntity.ok(book);
     }
-    @PutMapping("/updateBook")
-    public ResponseEntity<Book> updateBook(@RequestBody Book book) {
-        Book updatedBook = bookService.updateBook(book);
-        return ResponseEntity.ok(updatedBook);
+    @PutMapping("/updateBook/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable Integer id, @RequestBody Book bookDetails) {
+        return ResponseEntity.ok(bookService.updateBook(id, bookDetails));
     }
+
+
     @DeleteMapping("/deleteBook/{id}")
     public ResponseEntity<Book> deleteBook(@PathVariable("id") Integer id) {
         bookService.deleteBook(id);
