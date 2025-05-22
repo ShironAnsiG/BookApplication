@@ -11,8 +11,6 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-
-
 @RequestMapping("/book/v1")
 public class BookController {
     private final BookService bookService;
