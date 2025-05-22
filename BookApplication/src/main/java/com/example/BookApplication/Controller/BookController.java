@@ -5,6 +5,7 @@ import com.example.BookApplication.Service.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,29 +21,34 @@ public class BookController {
         this.bookService = bookService;
     }
     @PostMapping("/addBook")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Book> addBook(@RequestBody Book book) {
         Book savedBook = bookService.addBook(book);
         return ResponseEntity.ok(savedBook);
 
     }
     @GetMapping("/Books")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<List<Book>> getAllBooks() {
         List<Book> books = bookService.getAllBooks();
         return ResponseEntity.ok(books);
     }
 
     @GetMapping("/getBook/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Book> getBookById(@PathVariable("id") Integer id) {
         Book book = bookService.getBookById(id);
         return ResponseEntity.ok(book);
     }
     @PutMapping("/updateBook/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Book> updateBook(@PathVariable Integer id, @RequestBody Book bookDetails) {
         return ResponseEntity.ok(bookService.updateBook(id, bookDetails));
     }
 
 
     @DeleteMapping("/deleteBook/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Book> deleteBook(@PathVariable("id") Integer id) {
         bookService.deleteBook(id);
         return ResponseEntity.ok().build();
