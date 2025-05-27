@@ -20,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:4200") // allow Angular dev server
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
     @Autowired
     private UserRepository userRepository;
@@ -43,7 +43,7 @@ public class AuthController {
 
             Map<String, String> response = new HashMap<>();
             response.put("message", "Login successful");
-            response.put("role", user.getRole());  // e.g., "ADMIN" or "USER"
+            response.put("role", user.getRole());
             return ResponseEntity.ok(response);
 
 
