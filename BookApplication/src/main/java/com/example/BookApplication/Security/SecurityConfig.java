@@ -1,13 +1,8 @@
 package com.example.BookApplication.Security;
-
-
-
 import com.example.BookApplication.Entity.Users;
 import com.example.BookApplication.Repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
-
 import com.example.BookApplication.Service.UserService;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
